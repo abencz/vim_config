@@ -58,6 +58,14 @@ function! Solarize(...)
   colorscheme solarized
 endfunction
 
+function! s:Underline(chars)
+  let chars = empty(a:chars) ? '-' : a:chars
+  let nr_columns = virtcol('$') - 1
+  let uline = repeat(chars, (nr_columns / len(chars)) + 1)
+  put =strpart(uline, 0, nr_columns)
+endfunction
+command! -nargs=? Underline call s:Underline(<q-args>)
+
 """"""""""""""""
 " Configuration
 """"""""""""""""
@@ -110,10 +118,6 @@ if version >= 700
   map <leader>D :tabclose<CR>
   ""map <leader>D :tabonly<CR>
 
-  " shell integration
-  map <leader>hh :ConqueTerm
-  map <leader>hb :ConqueTerm bash<CR>
-
   " NERDTree support
   try
     map <leader>n :execute 'NERDTreeToggle ' . escape(getcwd(), '\ ')<CR>
@@ -127,6 +131,13 @@ endif
 " write to buffer as root
 map <leader>## :!sudo vim %<CR>
 map <leader>#w :w !sudo tee %<CR>
+
+" underline
+map <leader>u- :Underline -<CR>
+map <leader>u= :Underline =<CR>
+map <leader>u/ :Underline /<CR>
+map <leader>u* :Underline *<CR>
+map <leader>u" :Underline "<CR>
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
