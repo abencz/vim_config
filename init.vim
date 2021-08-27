@@ -187,4 +187,5 @@ else
     colorscheme desert
     call Solarize('dark', 16)
   endif
+  highlight Normal ctermbg=NONE
 end
